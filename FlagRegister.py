@@ -24,3 +24,6 @@ class FlagRegister:
     def clear(self, bit: Flags):
         if self.get(bit) > 0:
             self.flagREG -= (1 << bit.value)
+
+    def dump_flags(self):
+        return self.flagREG
