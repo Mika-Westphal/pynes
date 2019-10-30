@@ -1,7 +1,12 @@
 from Memory import Memory
 from CPU import CPU
-from FlagRegister import *
+from Stack import Stack
+from Register import Register, Flags, FlagRegister
 
-mem = Memory()
-cpu = CPU(mem)
-print(mem.read(0x0000))
+memory = Memory()
+register = Register()
+flag_register = FlagRegister()
+stack = Stack()
+cpu = CPU(memory=memory, registers=register, flag_register=flag_register, stack=stack)
+
+

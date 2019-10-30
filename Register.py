@@ -1,4 +1,6 @@
 from enum import Enum
+from ctypes import c_uint8 as uint8
+
 
 class Flags(Enum):
     FLAG_CARRY = 0
@@ -10,9 +12,26 @@ class Flags(Enum):
     FLAG_OVERFLOW = 6
     FLAG_NEGATIVE = 7
 
+
+class Register:
+    def __init__(self):
+        self.reset()
+
+    def set(self, register, data: uint8):
+        self.register[register] = data
+
+    def get(self, register):
+        return self.register[register]
+
+    def reset(self):
+        self.register = {"a": 0x00,
+                         "x": 0x00,
+                         "y": 0x00}
+
+
 class FlagRegister:
     def __init__(self):
-        self.flagREG = (1 << Flags.FLAG_B_2.value)
+        self.reset()
 
     def get(self, bit: Flags):
         return self.flagREG & (1 << bit.value)
@@ -27,3 +46,6 @@ class FlagRegister:
 
     def dump_flags(self):
         return self.flagREG
+
+    def reset(self):
+        self.flagREG = (1 << Flags.FLAG_B_2.value)
